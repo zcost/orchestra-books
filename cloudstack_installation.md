@@ -117,6 +117,9 @@ systemctl enable rpcbind.service
 systemctl enable nfs-server.service
 systemctl restart  rpcbind.service
 systemctl restart nfs-server.service
+
+firewall-cmd --permanent --zone=public --add-service=nfs
+firewall-cmd --reload
 ~~~
 
 # Management Server Installation
