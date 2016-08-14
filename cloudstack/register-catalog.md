@@ -6,6 +6,8 @@ Keyword | Value         | Description
 ----    | ----          | ----
 URL     | http://127.0.0.1/api/v1   | Orchestra API enpoint
 REPO    | https://raw.githubusercontent.com/zcost/orchestra-books/master   | Repository if Orchestra books
+USER_ID | admin         | User ID
+PASSWORD| password      | Password for User ID
 
 ## Portfolio
 
@@ -63,8 +65,8 @@ def makeDelete(url, header):
 
 display('Auth')
 url = '${URL}/token/get'
-user_id='root'
-password='123456'
+user_id='${USER_ID}'
+password='${PASSWORD}'
 body = {'user_id':user_id, 'password':password}
 token = makePost(url, header, body)
 token_id = token['token']
