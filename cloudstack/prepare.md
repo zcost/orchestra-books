@@ -71,12 +71,12 @@ addEnv('${METADATA}', body)
 
 # Get cloudstack01-vm
 s_id = getServer('cloudstack01-vm')
-body = {'add':{'jeju':{'cloudstack01-vm':[s_id]}}}
+body = {'add':{'cloudstack01-vm':[s_id]}}
 addEnv('${METADATA}', body)
 
 # Get mnode
 s_id = getServer('mnode')
-body = {'add':{'jeju':{'mnode':[s_id]}}}
+body = {'add':{'mnode':[s_id]}}
 addEnv('${METADATA}', body)
 
 
