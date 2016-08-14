@@ -24,7 +24,7 @@ def getZoneID(name):
         r =requests.get(url, headers=hdr)
         if (r.status_code == 200):
             result = json.loads(r.text)
-            return result.results[0].zone_id
+            return result.results[0]['zone_id']
     except requests.exception.ConnectionError:
         print "Failed to connect"
 
