@@ -5,9 +5,11 @@
 Keyword         | Value             | Description
 ----            | ----              | ----
 DOMAIN          | cloud.priv        | Domain name for internal
-REPO            | https://raw.githubusercontent.com/pyengine/orchestra-books/master/infrastructure/zcost    | distribution repo
+REPO            | https://raw.githubusercontent.com/zcost/orchestra-books/master    | distribution repo
+CENTOS          | http://ftp.daumkakao.com/centos/7/os/x86_64/images/pxeboot/ | CentosOS Repo for pxeboot
 MGMT01_MAC1     | 52:54:00:00:01:01 | Management node MAC address 1
 KSDEVICE        | eth0              | Default Interface for Kickstart Installation
+NUM_CNODE       | 7                 | Number of Compute node
 
 *Notice: every code like ${KEYWORD} is replaced by envrironment value*
  
@@ -71,8 +73,8 @@ mkdir -p /tftpboot
 mkdir -p /tftpboot/pxelinux.cfg
 mkdir -p /tftpboot/centos7
 wget -O /tftpboot/pxelinux.0            ${REPO}/dist/pxelinux.0
-wget -O /tftpboot/centos7/vmlinuz       ${REPO}/dist/centos7/vmlinuz
-wget -O /tftpboot/centos7/initrd.img    ${REPO}/dist/initrd.img
+wget -O /tftpboot/centos7/vmlinuz       ${CENTOS}/vmlinuz
+wget -O /tftpboot/centos7/initrd.img    ${CENTOS}/initrd.img
 ~~~
 
 edit /tftpboot/pxelinux.cfg/default 
@@ -98,28 +100,71 @@ timeout 10
 edit /etc/dhcp/mgmt.conf
 
 ~~~text
-subnet 10.2.0.0 netmask 255.255.255.0 {
-  range 10.2.0.11 10.2.0.200;
+subnet 10.2.0.0 netmask 255.255.0.0 {
+  range 10.2.0.11 10.2.1.200;
   next-server ${IP};
   option routers 10.2.0.254;
-  option broadcast-address 10.2.0.255;
-  option subnet-mask 255.255.255.0;
+  option broadcast-address 10.2.255.255;
+  option subnet-mask 255.255.0.0;
   option domain-name "${DOMAIN}";
   option domain-name-servers 8.8.8.8;
   filename "pxelinux.0";
 
-  host mgmt01-vm {
+  host cloudstack01-vm {
     hardware ethernet ${MGMT01_MAC1};
     fixed-address 10.2.0.11;
-    option subnet-mask 255.255.255.0;
-    option host-name "mgmt01-vm";
+    option subnet-mask 255.255.0.0;
+    option host-name "cloudstack01-vm";
     }
 }
 ~~~
 
-edit /etc/dhcp/rack01.conf
+create /etc/dhcp/rack01.conf with number of cnodes
 
-~~~text
+~~~python
+fp = open('/etc/dhcp/rack01.conf', 'w')
+content = """
+subnet 10.1.1.0 netmask 255.255.255.0 {
+    range 10.1.1.1 10.1.1.200;
+    next-server ${IP};
+    option routers 10.1.1.254;
+    option broadcast-address 10.1.1.255;
+    option subnet-mask 255.255.255.0;
+    option domain-name "${DOMAIN}";
+    option domain-name-servers 8.8.8.8;
+    filename \"pxelinux.0\";
+
+    #######################
+    # Cnode Mgmt network
+    #######################
+"""
+for i in range(${NUM_CNODE}):
+    node = """    host cnode%.2d-R01 {
+        #hardware ethernet aa:bb:cc:dd:ee:ff;
+        fixed-address 10.1.1.%d;
+        option subnet-mask 255.255.255.0;
+        option host-name \"cnode%.2d-R01\";
+        }\n""" % (i+1, i+1, i+1)
+    content = content + node
+
+content = content + """
+    #######################
+    # IPMI
+    #######################
+    """
+
+for i in range(${NUM_CNODE}):
+    node = """    host cnode%.2d-R01.IPMI {
+        #hardware ethernet bb:cc:dd:ee:ff:aa;
+        fixed-address 10.1.1.%d;
+        option subnet-mask 255.255.255.0;
+        }\n""" % (i, i + 101)
+    content = content + node
+
+
+content = content + "\n}"
+fp.write(content)
+fp.close()
 ~~~
 
 # Restart Service
