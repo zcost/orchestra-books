@@ -77,7 +77,7 @@ display('List Portfolios')
 show(makeGet(url, header))
 
 display('Create Portfolio')
-body = {'name':'Cloud', 'description':'Cloud IaaS Solution, OpenStack, CloudStack, and Docker',
+body = {'name':'Cloud2', 'description':'Cloud IaaS Solution, OpenStack, CloudStack, and Docker',
         'owner':'choonho.son'}
 portfolio = makePost(url, header, body)
 show(portfolio)
@@ -147,7 +147,7 @@ show(task)
 
 display('Map Task #3')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Install CloudStack Management', 'task_type':'ssh@cloudstack01-vm', 'task_uri':'${REPO}/cloudstack/cloudstack-management.md'}}
+body = {'map': {'name':'Install CloudStack Management', 'task_type':'jeju@cloudstack01-vm', 'task_uri':'${REPO}/cloudstack/cloudstack-management.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)
@@ -155,7 +155,7 @@ show(task)
 
 display('Map Task #4')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Create Bonding Interface', 'task_type':'jeju@RACK01', 'task_uri':'${REPO}/cloudsack/cnode-network.md'}}
+body = {'map': {'name':'Create Bonding Interface', 'task_type':'jeju@RACK01', 'task_uri':'${REPO}/cloudstack/cnode-network.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)

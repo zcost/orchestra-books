@@ -136,6 +136,7 @@ yum install -y mariadb-server
 Start mariaDB
 
 ~~~bash
+sed -i s/PrivateTmp=true/PrivateTmp=false/ /lib/systemd/system/mariadb.service
 systemctl enable mariadb.service
 systemctl start mariadb.service
 ~~~
