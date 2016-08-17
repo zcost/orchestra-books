@@ -169,9 +169,8 @@ CloudStack uses a number of system VMs to provide functionality for accessing th
 
 Now we need to download the system VM template and deploy that to the share we just mounted.
 
-edit /root/execute.sh
 
-~~~text
+~~~bash
 /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt \
 -m ${SECONDARY} \
 -u ${REPO}/systemvm64template-4.6.0-kvm.qcow2.bz2 \
