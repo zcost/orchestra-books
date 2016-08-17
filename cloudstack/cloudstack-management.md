@@ -144,8 +144,12 @@ systemctl start mariadb.service
 ## Installation
 
 We are now going to install the management server.
+Haveged is enhance entropy of system.
+Since CloudStack installation needs to encrypt something.
+But it is very slow on VM. Because of low entropy.
 
 ~~~bash
+yum -y install haveged
 yum -y install cloudstack-management
 cloudstack-setup-databases cloud:${PASSWORD}@localhost --deploy-as=root
 ~~~
