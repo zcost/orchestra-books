@@ -88,7 +88,7 @@ h = socket.gethostname()
 i = h.split('-')
 ip3 = int(i[0][-2:])
 ip4 = int(i[1][-2:])
-ip='10.2.%s.%s' % (ip3, ip4)
+ip='10.2.%s.%s' % (ip4, ip3)
 fp = open('/etc/sysconfig/network-scripts/ifcfg-${BRIDGE_MGMT}', 'w')
 content = """
 TYPE=Bridge
@@ -132,6 +132,7 @@ fp.close()
 ## Update Network
 
 ~~~bash
+ifconfig bond0 up
 ifconfig VLAN${VLAN_MGMT} up
-systemctl restart NetworkManager
+systemctl restart network.service
 ~~~
