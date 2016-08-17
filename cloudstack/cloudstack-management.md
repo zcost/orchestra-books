@@ -151,6 +151,7 @@ But it is very slow on VM. Because of low entropy.
 
 ~~~bash
 yum -y install haveged
+haveged -w 1024
 yum -y install cloudstack-management
 cloudstack-setup-databases cloud:${PASSWORD}@localhost --deploy-as=root
 ~~~
