@@ -66,7 +66,7 @@ systemctl enable nfs-server.service
 systemctl restart  rpcbind.service
 systemctl restart nfs-server.service
 
-firewall-cmd --zone=public --add-service=nfs --permanent
+firewall-cmd --zone=internal --add-service=nfs --permanent
 firewall-cmd --reload
 ~~~
 
