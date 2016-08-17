@@ -11,6 +11,7 @@ PRIMARY         | /primary          | Primary storage directory path
 SECONDARY       | /secondary        | Secondary storage directory path
 DOMAIN          | cloud.priv        | Domain for management
 PASSWORD        | password          | MySQL password for cloud account
+REPO            | http://cloudstack.apt-get.eu/systemvm/4.6 | Repository for System Template
 
 ## SELinux
 
@@ -170,7 +171,7 @@ Now we need to download the system VM template and deploy that to the share we j
 ~~~bash
 /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt \
 -m ${SECONDARY} \
--u http://cloudstack.apt-get.eu/systemvm/4.6/systemvm64template-4.6.0-kvm.qcow2.bz2 \
+-u ${REPO}/systemvm64template-4.6.0-kvm.qcow2.bz2 \
 -h kvm -F
 ~~~
 
