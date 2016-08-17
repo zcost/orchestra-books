@@ -74,8 +74,8 @@ fp.close()
 ~~~bash
 ifconfig ${NIC1} up
 ifconfig ${NIC2} up
-systemctl restart network.service
 ifconfig bond0 up
+systemctl restart network.service
 ~~~
 
 # Bridge Interface
@@ -83,13 +83,21 @@ ifconfig bond0 up
 ## Create Bridge interface for management
 
 ~~~python
+import socket
+h = socket.gethostname()
+i = h.split('-')
+ip3 = int(i[0][-2:])
+ip4 = int(i[1][-2:])
+ip='10.2.%s.%s' % (ip3, ip4)
 fp = open('/etc/sysconfig/network-scripts/ifcfg-${BRIDGE_MGMT}', 'w')
 content = """
 TYPE=Bridge
 BOOTPROTO=none
 DEVICE=${BRIDGE_MGMT}
 ONBOOT=yes
-"""
+IPADDR=%s
+NETMASK=255.255.0.0
+""" % ip
 fp.write(content)
 fp.close()
 
@@ -105,12 +113,6 @@ Rack # indicates the 3rd digit of IP address
 Host # indicates the 4th digit of IP address
 
 ~~~python
-import socket
-h = socket.gethostname()
-i = h.split('-')
-ip3 = int(i[0][-2:])
-ip4 = int(i[1][-2:])
-ip='10.2.%s.%s' % (ip3, ip4)
 fp = open('/etc/sysconfig/network-scripts/ifcfg-VLAN${VLAN_MGMT}', 'w')
 content = """
 VLAN=yes
@@ -121,9 +123,7 @@ BOOTPROTO=none
 DEVICE=VLAN${VLAN_MGMT}
 ONBOOT=yes
 BRIDGE=${BRIDGE_MGMT}
-IPADDR=%s
-NETMASK=255.255.0.0
-""" % ip
+""" 
 fp.write(content)
 fp.close()
 
@@ -132,5 +132,6 @@ fp.close()
 ## Update Network
 
 ~~~bash
+ifconfig VLAN${VLAN_MGMT} up
 systemctl restart NetworkManager
 ~~~
