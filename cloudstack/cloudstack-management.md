@@ -163,20 +163,6 @@ Now that the database has been created, we can take the final step in setting up
 cloudstack-setup-management --tomcat7
 ~~~
 
-## System Template Setup
-
-CloudStack uses a number of system VMs to provide functionality for accessing the console of virtual machines, providing various networking services, and managing various aspects of storage.
-
-Now we need to download the system VM template and deploy that to the share we just mounted.
-
-
-~~~bash
-/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt \
--m ${SECONDARY} \
--u ${REPO}/systemvm64template-4.6.0-kvm.qcow2.bz2 \
--h kvm -F
-~~~
-
 Reference
 
 http://docs.cloudstack.apache.org/projects/cloudstack-installation/en/4.8/qig.html
