@@ -7,6 +7,7 @@ This document is targeted for CentOS 7 and CloudStack 4.8~
 Keyword         | Value             | Description
 ----            | ----              | ----
 VER             | 4.8               | CloudStack Version
+REPO            | http://220.73.134.133/cloudstack | Repository for CloudStack package
 
 ## SELinux
 
@@ -54,7 +55,7 @@ edit /etc/yum.repos.d/cloudstack.repo
 ~~~text
 [cloudstack]
 name=cloudstack
-baseurl=http://cloudstack.apt-get.eu/centos/7/${VER}/
+baseurl=${REPO}/centos/7/${VER}/
 enabled=1
 gpgcheck=0
 ~~~

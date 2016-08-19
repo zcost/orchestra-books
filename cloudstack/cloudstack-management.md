@@ -11,7 +11,7 @@ PRIMARY         | /primary          | Primary storage directory path
 SECONDARY       | /secondary        | Secondary storage directory path
 DOMAIN          | cloud.priv        | Domain for management
 PASSWORD        | password          | MySQL password for cloud account
-REPO            | http://cloudstack.apt-get.eu/systemvm/4.6 | Repository for System Template
+REPO            | http://220.73.134.133/cloudstack | Repository for CloudStack package
 
 ## SELinux
 
@@ -59,7 +59,7 @@ edit /etc/yum.repos.d/cloudstack.repo
 ~~~text
 [cloudstack]
 name=cloudstack
-baseurl=http://cloudstack.apt-get.eu/centos/7/${VER}/
+baseurl=${REPO}/centos/7/${VER}/
 enabled=1
 gpgcheck=0
 ~~~
@@ -161,6 +161,15 @@ Now that the database has been created, we can take the final step in setting up
 
 ~~~bash
 cloudstack-setup-management --tomcat7
+~~~
+
+# System Template Setup
+
+~~~bash
+/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt \
+-m ${SECONDARY} \
+-u ${REPO}/systemvm/4.6/systemvm64template-4.6.0-kvm.qcow2.bz2 \
+-h kvm -F
 ~~~
 
 Reference
