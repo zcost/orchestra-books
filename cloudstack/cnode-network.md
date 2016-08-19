@@ -37,7 +37,7 @@ NAME=bond0
 BONDING_MASTER=yes
 BOOTPROTO=none
 ONBOOT=yes
-BONDING_OPS="mode=${MODE} miimon=${MIIMON}"
+BONDING_OPTS="mode=${MODE} miimon=${MIIMON}"
 ~~~
 
 ## Step 2. Edit the NIC interface files
