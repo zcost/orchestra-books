@@ -75,7 +75,6 @@ fp.close()
 ifconfig ${NIC1} up
 ifconfig ${NIC2} up
 ifconfig bond0 up
-systemctl restart network.service
 ~~~
 
 # Bridge Interface
@@ -132,7 +131,6 @@ fp.close()
 ## Update Network
 
 ~~~bash
-ifconfig bond0 up
 ifconfig VLAN${VLAN_MGMT} up
-systemctl restart network.service
+ifconfig ${BRIDGE_MGMT} up
 ~~~
