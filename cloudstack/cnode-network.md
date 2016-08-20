@@ -20,6 +20,7 @@ Load bonding module
 
 ~~~bash
 modprobe bonding
+modprobe 8021q
 modprobe --first-time bridge
 yum install -y bridge-utils
 ~~~
