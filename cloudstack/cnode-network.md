@@ -9,6 +9,7 @@ NIC2            | ens2f1        | Network Interface 2 for bonding
 MODE            | 4             | bonding mode(4 == LACP)
 MIIMON          | 100           | MII link monitoring (ms)
 VLAN_MGMT       | 3             | VLAN ID for management network
+VLAN_PUBLIC     | 11            | VLAN ID for public  network
 BRIDGE_MGMT     | br-mgmt10g    | Bridge Interface for management network
 
 
@@ -78,31 +79,6 @@ ifconfig ${NIC2} up
 ifconfig bond0 up
 ~~~
 
-# Bridge Interface
-
-## Create Bridge interface for management
-
-~~~python
-import socket
-h = socket.gethostname()
-i = h.split('-')
-ip3 = int(i[0][-2:])
-ip4 = int(i[1][-2:])
-ip='10.2.%s.%s' % (ip4, ip3)
-fp = open('/etc/sysconfig/network-scripts/ifcfg-${BRIDGE_MGMT}', 'w')
-content = """
-TYPE=Bridge
-BOOTPROTO=none
-DEVICE=${BRIDGE_MGMT}
-ONBOOT=yes
-IPADDR=%s
-NETMASK=255.255.0.0
-""" % ip
-fp.write(content)
-fp.close()
-
-~~~
-
 # VLAN Interface
 
 ## Create VLAN interface for management
@@ -114,6 +90,11 @@ Host # indicates the 4th digit of IP address
 
 ~~~python
 fp = open('/etc/sysconfig/network-scripts/ifcfg-VLAN${VLAN_MGMT}', 'w')
+h = socket.gethostname()
+i = h.split('-')
+ip3 = int(i[0][-2:])
+ip4 = int(i[1][-2:])
+ip='10.2.%s.%s' % (ip4, ip3)
 content = """
 VLAN=yes
 TYPE=Vlan
@@ -123,7 +104,10 @@ BOOTPROTO=none
 DEVICE=VLAN${VLAN_MGMT}
 ONBOOT=yes
 BRIDGE=${BRIDGE_MGMT}
-""" 
+IPADDR=%s
+NETMASK=255.255.0.0
+""" % ip
+
 fp.write(content)
 fp.close()
 
@@ -133,5 +117,4 @@ fp.close()
 
 ~~~bash
 ifconfig VLAN${VLAN_MGMT} up
-ifconfig ${BRIDGE_MGMT} up
 ~~~
