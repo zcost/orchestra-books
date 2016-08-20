@@ -165,7 +165,11 @@ cloudstack-setup-management --tomcat7
 
 # System Template Setup
 
+We change to wget with quite mode.
+There are Paramiko bug for wget with large buffer, ssh session hang.
+
 ~~~bash
+sed -i s/wget/wget\ -q/ /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt
 /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt \
 -m ${SECONDARY} \
 -u ${REPO}/systemvm/4.6/systemvm64template-4.6.0-kvm.qcow2.bz2 \
