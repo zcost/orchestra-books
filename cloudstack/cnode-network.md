@@ -11,7 +11,8 @@ MIIMON          | 100           | MII link monitoring (ms)
 VLAN_MGMT       | 3             | VLAN ID for management network
 VLAN_PUBLIC     | 11            | VLAN ID for public  network
 BRIDGE_MGMT     | br-mgmt10g    | Bridge Interface for management network
-
+BRIDGE_CLOUD0   | cloudbr0      | Bridge for Cloud 
+BRIDGE_CLOUD1   | cloudbr1      | Bridge for Cloud
 
 # Bonding Interface
 
@@ -40,6 +41,7 @@ BONDING_MASTER=yes
 BOOTPROTO=none
 ONBOOT=yes
 BONDING_OPTS="mode=${MODE} miimon=${MIIMON}"
+NM_CONTROLLED=no
 ~~~
 
 ## Step 2. Edit the NIC interface files
@@ -54,6 +56,7 @@ DEVICE=${NIC1}
 ONBOOT=yes
 MASTER=bond0
 SLAVE=yes
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
@@ -66,6 +69,7 @@ DEVICE=${NIC2}
 ONBOOT=yes
 MASTER=bond0
 SLAVE=yes
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
@@ -89,7 +93,7 @@ Rack # indicates the 3rd digit of IP address
 Host # indicates the 4th digit of IP address
 
 ~~~python
-fp = open('/etc/sysconfig/network-scripts/ifcfg-VLAN${VLAN_MGMT}', 'w')
+fp = open('/etc/sysconfig/network-scripts/ifcfg-bond0.${VLAN_MGMT}', 'w')
 h = socket.gethostname()
 i = h.split('-')
 ip3 = int(i[0][-2:])
@@ -101,20 +105,56 @@ TYPE=Vlan
 PHYSDEV=bond0
 VLAN_ID=${VLAN_MGMT}
 BOOTPROTO=none
-DEVICE=VLAN${VLAN_MGMT}
+DEVICE=bond0.{VLAN_MGMT}
 ONBOOT=yes
-BRIDGE=${BRIDGE_MGMT}
 IPADDR=%s
 NETMASK=255.255.0.0
+NM_CONTROLLED=no
 """ % ip
 
 fp.write(content)
 fp.close()
-
 ~~~
 
-## Update Network
+
+## Create VLAN Interface for public
+
+~~~python
+fp = open('/etc/sysconfig/network-scripts/ifcfg-bond0.${VLAN_PUBLIC}', 'w')
+content = """
+VLAN=yes
+TYPE=Vlan
+PHYSDEV=bond0
+VLAN_ID=${VLAN_PUBLIC}
+BOOTPROTO=none
+DEVICE=bond0.${VLAN_PUBLIC}
+ONBOOT=yes
+NM_CONTROLLED=no
+BRIDGE=cloudbr0
+""" 
+
+fp.write(content)
+fp.close()
+~~~
+
+
+## Public Bridge Network
+
+~~~python
+fp = open('/etc/sysconfig/network-scripts/ifcfg-cloudbr0', 'w')
+content = """
+TYPE=Bridge
+BOOTPROTO=none
+DEVICE=cloudbr0
+ONBOOT=yes
+DELAY=5
+STP=yes
+NM_CONTROLLED=no
+""" 
+
+
 
 ~~~bash
-ifconfig VLAN${VLAN_MGMT} up
+ifconfig bond0.${VLAN_MGMT} up
+ifconfig bond0.${VLAN_PUBLIC} up
 ~~~
