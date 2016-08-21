@@ -93,6 +93,7 @@ Rack # indicates the 3rd digit of IP address
 Host # indicates the 4th digit of IP address
 
 ~~~python
+import socket
 fp = open('/etc/sysconfig/network-scripts/ifcfg-bond0.${VLAN_MGMT}', 'w')
 h = socket.gethostname()
 i = h.split('-')
@@ -105,7 +106,7 @@ TYPE=Vlan
 PHYSDEV=bond0
 VLAN_ID=${VLAN_MGMT}
 BOOTPROTO=none
-DEVICE=bond0.{VLAN_MGMT}
+DEVICE=bond0.${VLAN_MGMT}
 ONBOOT=yes
 IPADDR=%s
 NETMASK=255.255.0.0
