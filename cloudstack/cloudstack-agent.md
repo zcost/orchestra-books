@@ -73,7 +73,7 @@ yum -y install cloudstack-agent
 KVM configuration is relatively simple at only a single item. We need to edit the QEMU VNC configuration.
 
 ~~~bash
-echo "vnc_listen=0.0.0.0" >> /etc/libvirt/qemu.conf
+echo "vnc_listen=\"0.0.0.0\"" >> /etc/libvirt/qemu.conf
 ~~~
 
 ## Libvirt Configuration
