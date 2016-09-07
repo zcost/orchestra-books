@@ -65,6 +65,7 @@ gpgcheck=0
 Installation of the KVM agent is trivial with just a single command, but afterwards we'll need to configure a few things
 
 ~~~bash
+yum -y install nfs-utils
 yum -y install cloudstack-agent
 ~~~
 
