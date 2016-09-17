@@ -93,13 +93,7 @@ Rack # indicates the 3rd digit of IP address
 Host # indicates the 4th digit of IP address
 
 ~~~python
-import socket
 fp = open('/etc/sysconfig/network-scripts/ifcfg-bond0.${VLAN_MGMT}', 'w')
-h = socket.gethostname()
-i = h.split('-')
-ip3 = int(i[0][-2:])
-ip4 = int(i[1][-2:])
-ip='10.2.%s.%s' % (ip4, ip3)
 content = """
 VLAN=yes
 TYPE=Vlan
@@ -108,11 +102,8 @@ VLAN_ID=${VLAN_MGMT}
 BOOTPROTO=none
 DEVICE=bond0.${VLAN_MGMT}
 ONBOOT=yes
-IPADDR=%s
-NETMASK=255.255.0.0
 NM_CONTROLLED=no
-""" % ip
-
+""" 
 fp.write(content)
 fp.close()
 ~~~
@@ -131,7 +122,6 @@ BOOTPROTO=none
 DEVICE=bond0.${VLAN_PUBLIC}
 ONBOOT=yes
 NM_CONTROLLED=no
-BRIDGE=cloudbr0
 """ 
 
 fp.write(content)
@@ -139,10 +129,16 @@ fp.close()
 ~~~
 
 
-## Public Bridge Network
+## Private Bridge Network
 
 ~~~python
+import socket
 fp = open('/etc/sysconfig/network-scripts/ifcfg-cloudbr0', 'w')
+h = socket.gethostname()
+i = h.split('-')
+ip3 = int(i[0][-2:])
+ip4 = int(i[1][-2:])
+ip='10.2.%s.%s' % (ip4, ip3)
 content = """
 TYPE=Bridge
 BOOTPROTO=none
@@ -151,9 +147,32 @@ ONBOOT=yes
 DELAY=5
 STP=yes
 NM_CONTROLLED=no
+IPADDR=%s
+NETMASK=255.255.0.0
+""" % ip
+fp.write(content)
+fp.close()
+~~~
+
+## Publice Bridge Network
+
+~~~python
+fp = open('/etc/sysconfig/network-scripts/ifcfg-cloudbr1', 'w')
+content = """
+TYPE=Bridge
+BOOTPROTO=none
+DEVICE=cloudbr1
+ONBOOT=yes
+DELAY=5
+STP=yes
+NM_CONTROLLED=no
 """ 
+fp.write(content)
+fp.close()
+~~~
 
 
+# update network
 
 ~~~bash
 ifconfig bond0.${VLAN_MGMT} up
