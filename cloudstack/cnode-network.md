@@ -180,7 +180,7 @@ fp.close()
 ~~~bash
 systemctl restart network.service
 vconfig add bond0 ${VLAN_TEST}
-brctl add if bond0 bond0.${VLAN_TEST}
+brctl addif cloudbr1 bond0.${VLAN_TEST}
 #ifconfig bond0.${VLAN_MGMT} up
 #ifconfig bond0.${VLAN_PUBLIC} up
 ~~~
