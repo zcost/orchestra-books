@@ -96,6 +96,7 @@ echo "mdns_adv = 0" >> /etc/libvirt/libvirtd.conf
 ~~~bash
 echo "LIBVIRTD_ARGS=\"--listen\"" >> /etc/sysconfig/libvirtd
 systemctl restart  libvirtd.service
+systemctl start cloudstack-agent.service
 ~~~
 # Reference
 http://docs.cloudstack.apache.org/projects/cloudstack-installation/en/4.8/qig.html
