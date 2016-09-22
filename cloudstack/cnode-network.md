@@ -12,8 +12,8 @@ VLAN_MGMT       | 3             | VLAN ID for management network
 VLAN_TEST       | 10            | VLAN ID for test (used for cloudstack installation)
 VLAN_PUBLIC     | 11            | VLAN ID for public  network
 BRIDGE_MGMT     | br-mgmt10g    | Bridge Interface for management network
-BRIDGE_CLOUD0   | cloudbr0      | Bridge for Cloud 
-BRIDGE_CLOUD1   | cloudbr1      | Bridge for Cloud
+BRIDGE_CLOUD0   | cloudbr0      | Bridge for Cloud Private
+BRIDGE_CLOUD1   | cloudbr1      | Bridge for Cloud Public
 
 # Bonding Interface
 
@@ -106,6 +106,7 @@ BOOTPROTO=none
 DEVICE=bond0.${VLAN_MGMT}
 ONBOOT=yes
 NM_CONTROLLED=no
+BRIDGE=${BRIDGE_CLOUD0}
 """ 
 fp.write(content)
 fp.close()
