@@ -9,6 +9,7 @@ NIC2            | ens2f1        | Network Interface 2 for bonding
 MODE            | 4             | bonding mode(4 == LACP)
 MIIMON          | 100           | MII link monitoring (ms)
 VLAN_MGMT       | 3             | VLAN ID for management network
+VLAN_TEST       | 10            | VLAN ID for test (used for cloudstack installation)
 VLAN_PUBLIC     | 11            | VLAN ID for public  network
 BRIDGE_MGMT     | br-mgmt10g    | Bridge Interface for management network
 BRIDGE_CLOUD0   | cloudbr0      | Bridge for Cloud 
@@ -25,6 +26,7 @@ modprobe bonding
 modprobe 8021q
 modprobe --first-time bridge
 yum install -y bridge-utils
+yum install -y vconfig
 ~~~
 
 ## Step 1. Create Bond Interface File
@@ -80,7 +82,8 @@ fp.close()
 ~~~bash
 ifconfig ${NIC1} up
 ifconfig ${NIC2} up
-ifconfig bond0 up
+#ifconfig bond0 up
+systemctl restart network.service
 ~~~
 
 # VLAN Interface
@@ -175,6 +178,9 @@ fp.close()
 # update network
 
 ~~~bash
-ifconfig bond0.${VLAN_MGMT} up
-ifconfig bond0.${VLAN_PUBLIC} up
+systemctl restart network.service
+vconfig add bond0 ${VLAN_TEST}
+brctl add if bond0 bond0.${VLAN_TEST}
+#ifconfig bond0.${VLAN_MGMT} up
+#ifconfig bond0.${VLAN_PUBLIC} up
 ~~~
