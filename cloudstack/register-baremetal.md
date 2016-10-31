@@ -109,8 +109,8 @@ for i in range(5):
     cnodes.append(server['server_id'])
     show(server)
 
-# Add metadata to stack(@mgmt)
-body = {'add':{'mgmt':mgmt}}
+# Add metadata to stack(@cnodes)
+body = {'add':{'cnodes':cnodes}}
 addEnv('${METADATA}',body)
 
 display('Add CloudStack VM to managemnet zone')
@@ -127,6 +127,9 @@ req = {'private_ip_address':ip}
 body = {'name':name, 'zone_id':zone_id, 'key_name':key_name, 'request':req}
 server = makePost(s_url, header, body)
 show(server)
-
+mgmt = []
+mgmt.append(server['server_id'])
+body = {'add':{'mgmt':mgmt}}
+addEnv('${METADATA}',body)
 
 ~~~
