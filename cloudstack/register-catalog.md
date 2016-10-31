@@ -77,7 +77,7 @@ display('List Portfolios')
 show(makeGet(url, header))
 
 display('Create Portfolio')
-body = {'name':'Cloud2', 'description':'Cloud IaaS Solution, OpenStack, CloudStack, and Docker',
+body = {'name':'Cloud', 'description':'Cloud IaaS Solution, OpenStack, CloudStack, and Docker',
         'owner':'choonho.son'}
 portfolio = makePost(url, header, body)
 show(portfolio)
