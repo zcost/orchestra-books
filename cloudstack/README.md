@@ -17,10 +17,10 @@ The deployment of docker swarm cluster has following process.
 
 Task Name | Task URI
 ----        | ----
-Prepare Information | https://github.com/zcost/orchestra-books/blob/master/cloudstack/prepare.md
-Install NFS Server  | https://github.com/zcost/orchestra-books/blob/master/cloudstack/nfs-server.md
-Install CloudStack Management | https://github.com/zcost/orchestra-books/blob/master/cloudstack/cloudstack-management.md
-Create Bonding Interface | https://github.com/zcost/orchestra-books/blob/master/cloudstack/cnode-network.md
+Register Infrastructure | https://github.com/zcost/orchestra-books/blob/master/cloudstack/register-infra.md
+Register Baremetals     | https://github.com/zcost/orchestra-books/blob/master/cloudstack/register-baremetal.md
+Install CloudStack Management | https://github.com/zcost/orchestra-books/blob/master/cloudstack/cloudstack-management2.md
+Update Cnode Network    | https://github.com/zcost/orchestra-books/blob/master/cloudstack/cnode-network.md
 Install CloudStack Agent | https://github.com/zcost/orchestra-books/blob/master/cloudstack/cloudstack-agent.md
 
 
@@ -29,6 +29,9 @@ Install CloudStack Agent | https://github.com/zcost/orchestra-books/blob/master/
 Keyword | Value | Description
 ----    | ----  | ----
 KEY_NAME   | server    | Keypair name
-
+REGION_NAME | ap-northeast-2    | Region name for Provisioning
+ZONE_NAME   | zcost-1   | Zone name for servers
+CS_PASSWORD     | password          | MySQL password for cloud account
+VER             | 4.8               | CloudStack Version
 
 # Reference

@@ -133,21 +133,21 @@ show(workflow)
 ######################################
 display('Map Task #1')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Prepare Information', 'task_type':'jeju', 'task_uri':'${REPO}/cloudstack/prepare.md'}}
+body = {'map': {'name':'Register Infrastructure', 'task_type':'jeju', 'task_uri':'${REPO}/cloudstack/register-infra.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)
 
 display('Map Task #2')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Install NFS Server', 'task_type':'jeju@mnode', 'task_uri':'${REPO}/cloudstack/nfs-server.md'}}
+body = {'map': {'name':'Register Baremetals', 'task_type':'jeju', 'task_uri':'${REPO}/cloudstack/register-baremetal.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)
 
 display('Map Task #3')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Install CloudStack Management', 'task_type':'jeju@cloudstack01-vm', 'task_uri':'${REPO}/cloudstack/cloudstack-management.md'}}
+body = {'map': {'name':'Install CloudStack Management', 'task_type':'jeju@mgmt', 'task_uri':'${REPO}/cloudstack/cloudstack-management2.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)
@@ -155,7 +155,7 @@ show(task)
 
 display('Map Task #4')
 task_url = '${URL}/catalog/workflows/%s/tasks' % workflow_id
-body = {'map': {'name':'Create Bonding Interface', 'task_type':'jeju@RACK01', 'task_uri':'${REPO}/cloudstack/cnode-network.md'}}
+body = {'map': {'name':'Update Cnode Network', 'task_type':'jeju@cnodes', 'task_uri':'${REPO}/cloudstack/cnode-network.md'}}
 task = makePost(task_url, header, body)
 task_id = task['task_id']
 show(task)

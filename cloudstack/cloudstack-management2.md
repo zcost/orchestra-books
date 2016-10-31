@@ -10,7 +10,7 @@ VER             | 4.8               | CloudStack Version
 NFS_SERVER      | 10.2.0.254        | NFS Server  Address
 SECONDARY       | /secondary        | Secondary storage directory path
 DOMAIN          | cloud.priv        | Domain for management
-PASSWORD        | password          | MySQL password for cloud account
+CS_PASSWORD     | password          | MySQL password for cloud account
 REPO            | http://220.73.134.133/cloudstack | Repository for CloudStack package
 
 ## SELinux
@@ -116,7 +116,7 @@ But it is very slow on VM. Because of low entropy.
 yum -y install haveged
 haveged -w 1024
 yum -y install cloudstack-management
-cloudstack-setup-databases cloud:${PASSWORD}@localhost --deploy-as=root
+cloudstack-setup-databases cloud:${CS_PASSWORD}@localhost --deploy-as=root
 ~~~
 
 When this process is finished, you should see a message like "CloudStack has successfully initialized the database"
