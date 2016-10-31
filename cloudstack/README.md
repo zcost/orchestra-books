@@ -33,5 +33,7 @@ REGION_NAME | ap-northeast-2    | Region name for Provisioning
 ZONE_NAME   | zcost-1   | Zone name for servers
 CS_PASSWORD     | password          | MySQL password for cloud account
 VER             | 4.8               | CloudStack Version
+USER_ID     | admin     | user_id for this system
+PASSWORD    | password  | password for this system
 
 # Reference
