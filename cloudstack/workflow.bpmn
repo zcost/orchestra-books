@@ -26,7 +26,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_16scg7x" sourceRef="Task_1h5zdvi" targetRef="Task_0t379h8" />
     <bpmn:sequenceFlow id="SequenceFlow_0vpl63r" sourceRef="Task_0t379h8" targetRef="Task_0auu8fp" />
     <bpmn:sequenceFlow id="SequenceFlow_041liy3" sourceRef="Task_0auu8fp" targetRef="EndEvent_088tyuu" />
-    <bpmn:serviceTask id="Task_0gj7ckq" name="Regist er Infrastructure">
+    <bpmn:serviceTask id="Task_0gj7ckq" name="Register Infrastructure">
       <bpmn:incoming>SequenceFlow_0fqe38g</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1cy1y3v</bpmn:outgoing>
     </bpmn:serviceTask>
