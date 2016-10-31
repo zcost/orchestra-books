@@ -69,6 +69,7 @@ def makeDelete(url, header):
     print r.text
     raise NameError(url)
 
+hdr = {'Content-Type':'application/json','X-Auth-Token':'${TOKEN}'}
 def addEnv(url, body):
     r = requests.post(url, headers=hdr, data=json.dumps(body))
     if r.status_code == 200:
