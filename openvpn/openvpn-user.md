@@ -10,6 +10,7 @@ EMAIL   | gildong.hong@email.com    | email address of user
 OU      | zcost_development         | Name of Organization
 DIR     | /root/keys                | Target directory for key saving
 SERVER  | 127.0.0.1                 | IP address of OpenVPN Server
+HOST    | server                    | name of VPN server
 
 # Create Keypair
 
@@ -63,8 +64,8 @@ verb 3
 ~~~bash
 target=${DIR}/${NAME}/
 mkdir -p $target
-cp /tmp/client.ovpn $target
-cp /etc/openvpn/easy-rsa/keys/ca.crt    $target
+cp /tmp/client.ovpn $target/${HOST}.ovpn
+cp /etc/openvpn/easy-rsa/keys/ca.crt    $target/${NAME}.ca
 cp /etc/openvpn/easy-rsa/keys/${NAME}.crt $target
 cp /etc/openvpn/easy-rsa/keys/${NAME}.key $target
 ~~~
