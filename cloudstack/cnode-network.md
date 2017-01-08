@@ -17,8 +17,18 @@ BRIDGE_CLOUD1   | cloudbr1      | Bridge for Cloud Public
 
 # Bonding Interface
 
+
+Disable NetworkManager first.
+Reference: https://access.redhat.com/discussions/2162171
+
+~~~bash
+systemctl stop NetworkManager.service
+systemctl disable NetworkManager.service
+~~~
+
 ## Prerequisite
 
+Before NetworkManager conflict with manual setting of network
 Load bonding module
 
 ~~~bash
