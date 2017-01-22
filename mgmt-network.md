@@ -39,6 +39,7 @@ TYPE=Bridge
 BOOTPROTO=none
 DEVICE=${BRIDGE_MGMT0}
 ONBOOT=yes
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
@@ -50,6 +51,7 @@ TYPE=Bridge
 BOOTPROTO=none
 DEVICE=${BRIDGE_MGMT}
 ONBOOT=yes
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
@@ -66,8 +68,10 @@ content = """
 TYPE=Ethernet
 BOOTPROTO=none
 NAME=${NIC0}
+DEVICE=${NIC0}
 ONBOOT=yes
 BRIDGE=${BRIDGE_MGMT0}
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
@@ -91,6 +95,7 @@ BOOTPROTO=none
 DEVICE=VLAN${VLAN_MGMT}
 ONBOOT=yes
 BRIDGE=${BRIDGE_MGMT}
+NM_CONTROLLED=no
 """
 fp.write(content)
 fp.close()
