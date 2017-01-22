@@ -73,17 +73,17 @@ edit /tmp/cloudstack
     <interface type='bridge'>
       <model type="virtio"/>
       <source bridge="virbr0"/>
-      <mac address="${MGMT_MAC0}"/>
+      <mac address="${MGMT01_MAC0}"/>
     </interface>
     <interface type='bridge'>
       <model type="virtio"/>
       <source bridge="${MGMT}"/>
-      <mac address="${MGMT_MAC1}"/>
+      <mac address="${MGMT01_MAC1}"/>
     </interface>
     <interface type='bridge'>
       <model type="virtio"/>
       <source bridge="${PUBLIC}"/>
-      <mac address="${MGMT_MAC2}"/>
+      <mac address="${MGMT01_MAC2}"/>
     </interface>
 
     <serial type="pty"/>
@@ -107,7 +107,7 @@ default CentOS 7.2
 # install
 label CentOS 7.2
     kernel centos${VER}/vmlinuz
-    append initrd=centos${VER}/initrd.img vga=normal inst.stage2=http://ftp.daumkakao.com/centos/${CENTOS}/os/x86_64/ ks=https://raw.githubusercontent.com/zcost/orchestra-books/master/ks/cloudstack.7 ksdevice=bootif
+    append initrd=centos${VER}/initrd.img vga=normal inst.stage2=http://ftp.daumkakao.com/centos/${VER}/os/x86_64/ inst.ks=https://raw.githubusercontent.com/zcost/orchestra-books/master/ks/cloudstack.7 ksdevice=bootif
 
 prompt 0
 timeout 10

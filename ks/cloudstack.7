@@ -1,6 +1,6 @@
 #version=DEVEL
 # System authorization information
-#auth --enableshadow --passalgo=sha512
+auth --enableshadow --passalgo=sha512
 # Use network installation
 url --url="http://ftp.daum.net/centos/7.2.1511/os/x86_64/"
 # Reboot after installation
@@ -21,7 +21,8 @@ network  --bootproto=dhcp --device=eth1 --onboot=off --ipv6=auto
 network  --hostname=cloudstack-vm
 
 # Root password
-rootpw "donotuse" 
+rootpw --iscrypted $6$bdYD.m97h6rOtzWx$0OBk/Q3cA4mf0T2xH6i.3ESxv6kuFf7jfdiu70JbAOiyUxKst6Ln8F.xJFtcksLbh38iM.qTQt0MG6LBHxb0Q0
+ 
 # System services
 services --enabled="chronyd"
 # System timezone
@@ -52,4 +53,5 @@ chmod  0700 /root/.ssh
 wget -O /root/.ssh/authorized_keys https://raw.githubusercontent.com/zcost/orchestra-books/master/ks/authorized_keys
 chmod 0600 /root/.ssh/authorized_keys
 restorecon -R /root/.ssh/
+wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/zcost/orchestra-books/master/ks/sshd_config
 %end
