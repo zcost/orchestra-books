@@ -148,3 +148,4 @@ yum install -y python-devel gcc expect epel-release
 yum install -y python-pip
 pip install jeju --upgrade
 %end
+~~~
