@@ -10,8 +10,8 @@ STORAGE         | /storage          | Directory for VM image
 MGMT            | br-mgmt10g        | Bridge network
 PUBLIC          | br-public10g      | Bridge network
 MGMT01_MAC0     | 52:54:00:00:00:02 | Management node MAC address 1
-MGMT01_MAC1     | 52:54:00:00:01:02 | Management node MAC address 1
-MGMT01_MAC2     | 52:54:00:00:02:02 | Management node MAC address 2
+MGMT01_MAC1     | 52:54:00:00:01:01 | Management node MAC address 1
+MGMT01_MAC2     | 52:54:00:00:02:01 | Management node MAC address 2
 
 ## Prepare environment
 
