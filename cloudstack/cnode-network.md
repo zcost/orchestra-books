@@ -187,8 +187,10 @@ fp.close()
 
 Update routing table for 10G management
 
-~~~bash
-cat "10.2.0.0/16 via 10.2.0.1 dev cloudbr0" >> /etc/sysconfig/network
+edit /etc/sysconfig/network-scripts/route-cloudbr1
+
+~~~text
+10.2.0.0/16 via 10.2.0.1 dev cloudbr0
 ~~~
 
 # update network
