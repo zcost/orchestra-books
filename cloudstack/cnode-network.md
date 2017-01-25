@@ -162,7 +162,7 @@ DELAY=5
 STP=yes
 NM_CONTROLLED=no
 IPADDR=%s
-NETMASK=255.255.0.0
+NETMASK=255.255.255.0
 """ % ip
 fp.write(content)
 fp.close()
@@ -185,6 +185,11 @@ fp.write(content)
 fp.close()
 ~~~
 
+Update routing table for 10G management
+
+~~~bash
+cat "10.2.0.0/16 via 10.2.0.1 dev cloudbr0" >> /etc/sysconfig/network
+~~~
 
 # update network
 
