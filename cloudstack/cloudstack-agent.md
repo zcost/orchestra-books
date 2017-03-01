@@ -105,9 +105,10 @@ systemctl start cloudstack-agent.service
 To Use local storage, make a new volume
 
 ~~~bash
-lvcreate -L 100G ${VG_NAME} -n lv_data
+lvcreate -l 100%FREE ${VG_NAME} -n lv_data
 mkfs.ext4 -F /dev/mapper/${VG_NAME}-lv_data
 echo "/dev/mapper/${VG_NAME}-lv_data    /var/lib/libvirt/images     ext4    defaults    1   1" >> /etc/fstab
+mount /dev/mapper/${VG_NAME}-lv_data /var/lib/libvirt/images
 ~~~ 
 # Reference
 http://docs.cloudstack.apache.org/projects/cloudstack-installation/en/4.8/qig.html
