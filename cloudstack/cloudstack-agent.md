@@ -8,6 +8,7 @@ Keyword         | Value             | Description
 ----            | ----              | ----
 VER             | 4.8               | CloudStack Version
 REPO            | http://220.73.134.133/cloudstack | Repository for CloudStack package
+VG_NAME         | vg00              | Volume Group name for local storage
 
 ## SELinux
 
@@ -62,7 +63,7 @@ gpgcheck=0
 
 # KVM Setup and Installation
 
-Installation of the KVM agent is trivial with just a single command, but afterwards we'll need to configure a few things
+Installation of the KVM agent is trivial with just a single command, but afterwards we need to configure a few things
 
 ~~~bash
 yum -y install nfs-utils
@@ -98,5 +99,15 @@ echo "LIBVIRTD_ARGS=\"--listen\"" >> /etc/sysconfig/libvirtd
 systemctl restart  libvirtd.service
 systemctl start cloudstack-agent.service
 ~~~
+
+# Use Local Storage
+
+To Use local storage, make a new volume
+
+~~~bash
+lvcreate -L 100G ${VG_NAME} -n lv_data
+mkfs.ext4 -F /dev/mapper/${VG_NAME}-lv_data
+echo "/dev/mapper/${VG_NAME}-lv_data    /var/lib/libvirt/images     ext4    defaults    1   1" >> /etc/fstab
+~~~ 
 # Reference
 http://docs.cloudstack.apache.org/projects/cloudstack-installation/en/4.8/qig.html
